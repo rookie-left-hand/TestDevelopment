@@ -40,7 +40,7 @@ class TestCalc:
         """商为无限循环小数时"""
         print(f"测试数据分别是：{a}, {b}")
         result = self.calc.div(a, b)
-        assert 3.333333333 == round(result, 9)
+        assert 3.3333333333 == round(result, 10)
 
 
 if __name__ == '__main__':
