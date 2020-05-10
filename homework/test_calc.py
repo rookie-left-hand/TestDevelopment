@@ -42,6 +42,5 @@ class TestCalc:
         result = self.calc.div(a, b)
         assert 3.3333333333 == round(result, 10)
 
-# 测试
 if __name__ == '__main__':
     pytest.main(['-vs','test_calc.py'])
