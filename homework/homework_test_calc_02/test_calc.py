@@ -8,11 +8,6 @@ import os
 import pytest
 import yaml
 
-from python_code.calc import Calc
-
-
-# print(os.path.join(os.path.dirname(__file__), '..', 'test_data', 'test_add_data.yaml'))
-
 class TestCalc:
 
     @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(open(
@@ -30,3 +25,5 @@ class TestCalc:
         result = calc.add(a, b)
         print(result)
         assert c == result
+if __name__ == '__main__':
+    pytest.main()

@@ -12,14 +12,16 @@ class TestCalc:
     def setup(self):
         self.calc = Calc()
 
-    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(open(os.path.dirname(__file__) + "\\test_add_data.yaml")))
+    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(open(
+        os.path.join(os.path.dirname(__file__), '..', 'test_data', 'test_add_data.yaml'))))
     def test_add(self, a, b, c):
         print(f"测试数据分别是：{a},{b}")
         result = self.calc.add(a, b)
         print(result)
         assert c == result
 
-    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(open(os.path.dirname(__file__) + "\\test_div_data.yaml")))
+    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(open(
+        os.path.join(os.path.dirname(__file__), '..', 'test_data', 'test_div_data.yaml'))))
     def test_div_01(self, a, b, c):
         """正常情况下测试"""
         print(f"测试数据分别是：{a},{b}")
