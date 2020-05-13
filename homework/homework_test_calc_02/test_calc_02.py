@@ -10,17 +10,32 @@ import yaml
 
 class TestCalc:
 
-    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(open(
-        os.path.join(os.path.dirname(__file__), '..', 'test_data', 'test_add_data.yaml'))))
+
+    test_data = open(os.path.join(os.path.dirname(__file__), '..', 'test_data', 'test_data.yaml'))
+
+    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(test_data))
     def calc_add(self, a, b, c, calc):
         print(f"测试数据分别是：{a},{b}")
         result = calc.add(a, b)
         print(result)
         assert c == result
 
-    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(open(
-        os.path.join(os.path.dirname(__file__), '..', 'test_data', 'test_add_data.yaml'))))
+    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(test_data))
     def calc_div(self, a, b, c, calc):
+        print(f"测试数据分别是：{a},{b}")
+        result = calc.add(a, b)
+        print(result)
+        assert c == result
+
+    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(test_data))
+    def calc_sub(self, a, b, c, calc):
+        print(f"测试数据分别是：{a},{b}")
+        result = calc.add(a, b)
+        print(result)
+        assert c == result
+
+    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(test_data))
+    def calc_mul(self, a, b, c, calc):
         print(f"测试数据分别是：{a},{b}")
         result = calc.add(a, b)
         print(result)
