@@ -25,5 +25,3 @@ class TestCalc:
         result = calc.add(a, b)
         print(result)
         assert c == result
-if __name__ == '__main__':
-    pytest.main()
