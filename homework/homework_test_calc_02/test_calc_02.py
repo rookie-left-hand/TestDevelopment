@@ -8,35 +8,50 @@ import os
 import pytest
 import yaml
 
+
+def get_data(key):
+    """
+    根据key值获取测试数据
+    :return: vaules
+    """
+    test_data = yaml.safe_load(open(os.path.join(os.path.dirname(__file__), '..', 'test_data', 'test_data.yaml')))
+    return test_data[key]
+
+
 class TestCalc:
 
+    # @pytest.mark.parametrize(["a", "b", "c"], get_data('add'))
+    # def calc_add(self, a, b, c, calc):
+    #     print(f"测试数据分别是：{a},{b}")
+    #     result = calc.add(a, b)
+    #     print(result)
+    #     assert c == result
+    #
+    # @pytest.mark.parametrize(["a", "b", "c"], get_data('div'))
+    # def calc_div(self, a, b, c, calc):
+    #     print(f"测试数据分别是：{a},{b}")
+    #     result = calc.add(a, b)
+    #     print(result)
+    #     assert c == result
+    #
+    # @pytest.mark.parametrize(["a", "b", "c"], get_data('sub'))
+    # def test_sub(self, a, b, c, calc):
+    #     print(f"测试数据分别是：{a},{b}")
+    #     result = calc.add(a, b)
+    #     print(result)
+    #     assert c == result
+    #
+    # @pytest.mark.parametrize(["a", "b", "c"], get_data('mul'))
+    # def calc_mul(self, a, b, c, calc):
+    #     print(f"测试数据分别是：{a},{b}")
+    #     result = calc.add(a, b)
+    #     print(result)
+    #     assert c == result
 
-    test_data = open(os.path.join(os.path.dirname(__file__), '..', 'test_data', 'test_data.yaml'))
+    @pytest.mark.parametrize(("a", "b", "expect"), get_data("mul"))
+    def calc_mul(self, a, b, expect, calc):
+        result = calc.mul(a, b)
+        assert expect == result
 
-    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(test_data))
-    def calc_add(self, a, b, c, calc):
-        print(f"测试数据分别是：{a},{b}")
-        result = calc.add(a, b)
-        print(result)
-        assert c == result
-
-    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(test_data))
-    def calc_div(self, a, b, c, calc):
-        print(f"测试数据分别是：{a},{b}")
-        result = calc.add(a, b)
-        print(result)
-        assert c == result
-
-    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(test_data))
-    def calc_sub(self, a, b, c, calc):
-        print(f"测试数据分别是：{a},{b}")
-        result = calc.add(a, b)
-        print(result)
-        assert c == result
-
-    @pytest.mark.parametrize(["a", "b", "c"], yaml.safe_load(test_data))
-    def calc_mul(self, a, b, c, calc):
-        print(f"测试数据分别是：{a},{b}")
-        result = calc.add(a, b)
-        print(result)
-        assert c == result
+if __name__ == '__main__':
+    pytest.main()
