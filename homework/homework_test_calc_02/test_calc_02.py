@@ -8,6 +8,8 @@ import os
 import pytest
 import yaml
 
+from hamcrest import *
+
 
 def get_data(key):
     """
@@ -20,38 +22,48 @@ def get_data(key):
 
 class TestCalc:
 
-    # @pytest.mark.parametrize(["a", "b", "c"], get_data('add'))
-    # def calc_add(self, a, b, c, calc):
-    #     print(f"测试数据分别是：{a},{b}")
-    #     result = calc.add(a, b)
-    #     print(result)
-    #     assert c == result
-    #
-    # @pytest.mark.parametrize(["a", "b", "c"], get_data('div'))
-    # def calc_div(self, a, b, c, calc):
-    #     print(f"测试数据分别是：{a},{b}")
-    #     result = calc.add(a, b)
-    #     print(result)
-    #     assert c == result
-    #
-    # @pytest.mark.parametrize(["a", "b", "c"], get_data('sub'))
-    # def test_sub(self, a, b, c, calc):
-    #     print(f"测试数据分别是：{a},{b}")
-    #     result = calc.add(a, b)
-    #     print(result)
-    #     assert c == result
-    #
-    # @pytest.mark.parametrize(["a", "b", "c"], get_data('mul'))
-    # def calc_mul(self, a, b, c, calc):
-    #     print(f"测试数据分别是：{a},{b}")
-    #     result = calc.add(a, b)
-    #     print(result)
-    #     assert c == result
+    def setup(self):
+        self.steps = yaml.safe_load(open(os.path.join(os.path.dirname(__file__), '..', 'test_data', 'test_steps.yaml')))
 
-    @pytest.mark.parametrize(("a", "b", "expect"), get_data("mul"))
-    def calc_mul(self, a, b, expect, calc):
-        result = calc.mul(a, b)
-        assert expect == result
+    @pytest.mark.parametrize(["a", "b", "c"], get_data('add'))
+    def calc_add(self, a, b, c, calc):
+        for step in self.steps:
+            if 'add' in step:
+                if isinstance(a, (float, int)) and isinstance(b, (float, int)):
+                    assert c == calc.add(a, b)
+                else:
+                    with pytest.raises(TypeError):
+                        calc.add(a, b)
+
+    @pytest.mark.parametrize(["a", "b", "c"], get_data('div'))
+    def calc_div(self, a, b, c, calc):
+        for step in self.steps:
+            if 'div' in step:
+                if isinstance(a, (float, int)) and isinstance(b, (float, int)):
+                    if b == 0:
+                        with pytest.raises(ZeroDivisionError):
+                            calc.div(a, b)
+                    else:
+                        c == calc.div(a, b)
+                else:
+                    with pytest.raises(TypeError):
+                        calc.add(a, b)
+
+    @pytest.mark.parametrize(["a", "b", "c"], get_data('sub'))
+    def calc_sub(self, a, b, c, calc):
+        if isinstance(a, (float, int)) and isinstance(b, (float, int)):
+            assert c == calc.sub(a, b)
+        else:
+            with pytest.raises(TypeError):
+                calc.sub(a, b)
+
+    @pytest.mark.parametrize(["a", "b", "c"], get_data('mul'))
+    def calc_mul(self, a, b, c, calc):
+        if isinstance(a, (float, int)) and isinstance(b, (float, int)):
+            assert c == calc.mul(a, b)
+        else:
+            with pytest.raises(TypeError):
+                calc.mul(a, b)
 
 if __name__ == '__main__':
     pytest.main()

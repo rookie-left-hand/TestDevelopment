@@ -16,4 +16,5 @@ class Calc:
         return a * b
 
 
-print(Calc().mul(600000,6000000))
+print(Calc().div(10,3))
+print(type(Calc().div(10,2)))

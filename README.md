@@ -7,3 +7,5 @@
 - 改造 pytest 的运行规则 ,测试用例命名以 calc_开始，加， 减 ，乘，除分别为 calc_add, calc_sub，…
 - 自动添加标签(add, sub, mul, div四种)，只运行标签为 add 和 div的测试用例。
 - 封装 add, div 测试步骤到 yaml 文件中
+## 2020-05-14
+- 上面要求除封装测试步骤以外都已实现
